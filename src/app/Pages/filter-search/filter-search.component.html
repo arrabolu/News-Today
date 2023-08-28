@@ -1,0 +1,78 @@
+<h1 mat-dialog-title class="text-center">Search by Filters</h1>
+
+<div mat-dialog-content>
+
+  <form [formGroup]="filterForm" >
+
+  <div>
+  <mat-form-field  >
+
+    <mat-label>Language</mat-label>
+    <mat-select formControlName="language"  name="Language">
+      <mat-option *ngFor="let language of Languages" [value]="language.value">
+        {{language.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  &nbsp;
+
+  <mat-form-field>
+    <mat-label>Country</mat-label>
+    <mat-select  formControlName="country"  name="Country">
+      <mat-option *ngFor="let country of countries" [value]="country.value">
+        {{country.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+   &nbsp;
+
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select   formControlName="category"  >
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{category}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+  <div>
+
+    <mat-form-field>
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date"   formControlName="fromDate"  >
+        <input matEndDate placeholder="End date" formControlName="toDate"  >
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    &nbsp;
+
+    <mat-form-field>
+      <mat-label>sortby</mat-label>
+      <mat-select  formControlName="sortBy">
+        <mat-option *ngFor="let sortBy of sortByArray" [value]="sortBy" >
+          {{sortBy}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+</form>
+
+</div>
+
+
+<div mat-dialog-actions class="Shiftleft">
+
+  <button mat-button color="primary"  [mat-dialog-close]="true" (click)="searchByFilters()" >search</button>
+  <button mat-button mat-dialog-close>Close</button>
+
+</div>
