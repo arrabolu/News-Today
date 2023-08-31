@@ -65,6 +65,10 @@ export class HeaderComponent implements OnInit {
       console.log(results.articles);
 
     })
+
+    const element : any = document.getElementById("mySidenav")
+    element.style.width = "0";
+
   }
 
   onSearchClick(){

@@ -11,9 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NewsComponent implements OnInit {
   articles: Array<any> = [];
-
+  searchText : any
   constructor(private apiService: newsApiService,private dialog : MatDialog, private activRoute : ActivatedRoute) {}
-
+  isNoSourcesShown = false;
   ngOnInit(): void {
 
     this.apiService.getTopHeadlinesOnHomepage().subscribe((data) => {
@@ -27,11 +27,32 @@ export class NewsComponent implements OnInit {
     this.apiService.getAllSources().subscribe((data) => {});
 
     this.apiService.emitFilterArts.subscribe((data) => {
-      this.articles = data;
+
+      console.log(data.length);
+
+      if(data.length == 0 ){
+        this.articles = [];
+        this.isNoSourcesShown = true;
+      }else{
+        this.articles = data;
+
+      }
     });
   }
 
   openDialog() {
     this.dialog.open(FilterSearchComponent);
+  }
+
+  onSearchClick(){
+    this.apiService.getSearchResults(this.searchText.trim()).subscribe(results =>{
+
+      this.apiService.emitFilterArticles(results.articles)
+      this.searchText = ''
+    })
+  }
+
+  reload(){
+    window.location.reload();
   }
 }
